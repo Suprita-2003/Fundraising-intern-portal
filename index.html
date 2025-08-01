@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Fundraising Intern Portal - Login</title>
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- Classic Firebase SDK (non-modular) -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyAMasAyxkB0oRmUj5FYTGZVrb70wEdHgBs",
+      authDomain: "fundraising-intern-portal.firebaseapp.com",
+      projectId: "fundraising-intern-portal",
+      storageBucket: "fundraising-intern-portal.firebasestorage.app",
+      messagingSenderId: "157339832650",
+      appId: "1:157339832650:web:7304d9275516f73c4031b3",
+      measurementId: "G-GES7FWG0B5"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+
+    function login() {
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value.trim();
+
+      auth.signInWithEmailAndPassword(email, password)
+        .then(() => {
+          alert("Login Successful!");
+          localStorage.setItem("internEmail", email);
+          window.location.href = "dashboard.html";
+        })
+        .catch(error => {
+          alert("Login Failed: " + error.message);
+        });
+    }
+
+    function signup() {
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value.trim();
+
+      auth.createUserWithEmailAndPassword(email, password)
+        .then(() => {
+          alert("Signup Successful!");
+          localStorage.setItem("internEmail", email);
+          window.location.href = "dashboard.html";
+        })
+        .catch(error => {
+          alert("Signup Failed: " + error.message);
+        });
+    }
+  </script>
+</head>
+<body>
+  <div class="container">
+    <h2>Fundraising Intern Portal</h2>
+    <input type="email" id="email" placeholder="Email" required />
+    <input type="password" id="password" placeholder="Password" required />
+    <br>
+    <div>
+        <br>
+      <button onclick="login()">Login</button>
+      <button class="signup" onclick="signup()">Sign Up</button>
+    </div>
+  </div>
+</body>
+</html>
