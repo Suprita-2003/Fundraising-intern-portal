@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Dashboard - Fundraising Intern Portal</title>
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- Firebase classic SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyAMasAyxkB0oRmUj5FYTGZVrb70wEdHgBs",
+      authDomain: "fundraising-intern-portal.firebaseapp.com",
+      projectId: "fundraising-intern-portal",
+      storageBucket: "fundraising-intern-portal.firebasestorage.app",
+      messagingSenderId: "157339832650",
+      appId: "1:157339832650:web:7304d9275516f73c4031b3",
+      measurementId: "G-GES7FWG0B5"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+
+    auth.onAuthStateChanged(user => {
+      if (user) {
+        document.getElementById('userEmail').textContent = user.email;
+      } else {
+        window.location.href = 'index.html'; // redirect if not logged in
+      }
+    });
+
+    function logout() {
+      auth.signOut()
+        .then(() => window.location.href = 'index.html')
+        .catch(err => alert("Logout failed: " + err.message));
+    }
+
+    function goLeaderboard() {
+      window.location.href = 'leaderboard.html';
+    }
+
+    function goLogin() {
+      window.location.href = 'index.html';
+    }
+  </script>
+</head>
+<body>
+  <div class="container">
+    <h2>Welcome, <span id="userEmail"></span></h2>
+    <p>Total Donations Raised: $1000</p>
+    <p>Rewards: You have unlocked the Bronze Badge!</p>
+
+     <br>
+    <button onclick="goLeaderboard()">Go to Leaderboard</button>
+    <button onclick="goLogin()">Go to Login Page</button>
+    <br><br>
+    <button onclick="logout()">Logout</button>
+  </div>
+</body>
+</html>
